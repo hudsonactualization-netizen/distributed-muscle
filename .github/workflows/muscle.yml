@@ -2,6 +2,15 @@ name: Free Cloud Muscle
 
 on:
   workflow_dispatch:
+    inputs:
+      task:
+        description: "Task name"
+        required: true
+        default: "test"
+      payload:
+        description: "Optional payload"
+        required: false
+        default: ""
   push:
 
 permissions:
@@ -20,6 +29,9 @@ jobs:
           python-version: "3.11"
 
       - name: Run compute job (capture output)
+        env:
+          TASK: ${{ inputs.task }}
+          PAYLOAD: ${{ inputs.payload }}
         run: |
           mkdir -p out
           python main.py | tee out/output.txt
