@@ -7,6 +7,32 @@ on:
 jobs:
   compute:
     runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run compute job (capture output)
+        run: |
+          mkdir -p out
+          python main.py | tee out/output.txt
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: results
+          path: out/name: Free Cloud Muscle
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  compute:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
