@@ -1,0 +1,16 @@
+name: Free Cloud Muscle
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run compute job
+        run: python main.py
